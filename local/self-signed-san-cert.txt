@@ -1,0 +1,25 @@
+https://support.citrix.com/article/CTX135602
+
+req.conf:
+
+[req]
+distinguished_name = req_distinguished_name
+x509_extensions = v3_req
+prompt = no
+[req_distinguished_name]
+C = US
+ST = Texasa
+L = Houston
+O = Hashicorp
+OU = Engineering
+CN = vault.jacobm.azure.hashidemos.io
+[v3_req]
+keyUsage = keyEncipherment, dataEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = vault.jacobm.azure.hashidemos.io
+IP.1 = 127.0.0.1
+
+
+openssl req -x509 -nodes -days 730 -newkey rsa:2048 -keyout  vault-key.pem -out vault-cert.crt -config req.conf -extensions 'v3_req'
